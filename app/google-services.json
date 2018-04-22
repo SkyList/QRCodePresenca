@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "397491529162",
+    "firebase_url": "https://presencawithqrcode.firebaseio.com",
+    "project_id": "presencawithqrcode",
+    "storage_bucket": "presencawithqrcode.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397491529162:android:2d5d03b9ea946083",
+        "android_client_info": {
+          "package_name": "skylist.com.qrcodepresenca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397491529162-1ea18djstjvu45hni5vod9l85l7e0113.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCbqeTrWSOsNCH-DQCbYd-FctEaAFnRQ0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
