@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,8 +19,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -44,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase db = null;
+    private DatabaseReference mDatabase;
 
     Button b_scan = null;
     FirebaseUser user = null;
@@ -76,6 +82,8 @@ public class HomeActivity extends AppCompatActivity {
 
         mRecyclerView       = findViewById(R.id.recyclerView);
         sharedPreferences   = getSharedPreferences( PREFS_KEY, MODE_PRIVATE);
+        mDatabase   = FirebaseDatabase.getInstance().getReference();
+        editor      = sharedPreferences.edit();
         textUser    = findViewById(R.id.textUser);
         textTime    = findViewById(R.id.currentTime);
         b_scan      = findViewById(R.id.bScan);
@@ -91,16 +99,27 @@ public class HomeActivity extends AppCompatActivity {
         textUser.setText( user.getDisplayName() );
         textTime.setText( sdf.format(new Date()) );
 
-        editor      = sharedPreferences.edit();
+        final Query query1 = mDatabase.child("users").child("students").child(mAuth.getCurrentUser().getUid());
+        query1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String currentDate = new SimpleDateFormat("dd/MM/yyyy/HH:mm:ss").format(new Date());
+                String date[] = currentDate.split("/");
 
+                Log.i("SAIDA", String.valueOf( dataSnapshot.getValue() ));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         b_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*editor.putString("email", "email@email.com");
-                editor.putString("password", "123456");
-                editor.commit();
-                */
+
+
                 textTime.setText( sdf.format(new Date()) );
 
                 IntentIntegrator integrator = new IntentIntegrator( activity );
@@ -147,5 +166,4 @@ public class HomeActivity extends AppCompatActivity {
         myref.child("students").child(mAuth.getCurrentUser().getUid()).child(materia).child(date[2]).child(date[1]).child(date[0]).child(date[3].split(":")[0]).child("institution").setValue(institution);
 
     }
-
 }

@@ -1,6 +1,8 @@
 package skylist.com.qrcodepresenca;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +31,11 @@ public class LoginActivity extends AppCompatActivity {
     TextView signupText     = null;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser = null;
+    private final String PREFS_KEY = "Prefs_key";
+    public SharedPreferences sharedPreferences = null;
+    public SharedPreferences.Editor editor = null;
+
+    SharedPreferences mSharedPreference= null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,16 @@ public class LoginActivity extends AppCompatActivity {
         signinButton    = findViewById(R.id.signinButton);
         signupText      = findViewById(R.id.signupText);
 
+        sharedPreferences   = PreferenceManager.getDefaultSharedPreferences(this);
+        editor      = sharedPreferences.edit();
+        mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        if( sharedPreferences.contains("email") ){
+            emailInput.setText( mSharedPreference.getString("email", "Default_Value") );
+            passwordInput.setText( mSharedPreference.getString("password", "Default_Value") );
+        }
+
+
         signupText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,18 +68,20 @@ public class LoginActivity extends AppCompatActivity {
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editor.putString("email", emailInput.getText().toString());
+                editor.putString("password", passwordInput.getText().toString());
+                editor.commit();
                 signinCheck( emailInput.getText().toString(), passwordInput.getText().toString());
             }
         });
 
     }
 
-    void signinCheck( String email,String password){
+    void signinCheck(final String email, final String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         if (!task.isSuccessful()) {
                             Log.w("sc", "signInWithEmail:failed", task.getException());
                             Toast.makeText(getApplicationContext(), "Sorry, try again", Toast.LENGTH_SHORT).show();
