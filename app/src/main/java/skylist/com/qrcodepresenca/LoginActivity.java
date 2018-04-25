@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Sorry, try again", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(getApplicationContext(),  task.isSuccessful()+" ...", Toast.LENGTH_SHORT).show();
-                            Log.d("sc", "signInWithEmail:onComplete:" +  task.isSuccessful());
                             startActivity(new Intent( getApplicationContext(), HomeActivity.class));
                         }
                     }

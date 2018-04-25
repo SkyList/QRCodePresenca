@@ -9,20 +9,20 @@ import android.widget.TextView;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private List<Presence> presenceList;
+    private List<CheckDoDia> presenceList;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView materia, day, preceptor;
 
         public MyViewHolder(View view) {
             super(view);
-            materia = view.findViewById(R.id.textMateria);
-            day = view.findViewById(R.id.textDay);
-            preceptor = view.findViewById(R.id.textPreceptor);
+            materia     = view.findViewById(R.id.textMateria);
+            day         = view.findViewById(R.id.textDay);
+            preceptor   = view.findViewById(R.id.textPreceptor);
         }
     }
 
-    public MyAdapter(List<Presence> presenceList) {
+    public MyAdapter(List<CheckDoDia> presenceList) {
         this.presenceList = presenceList;
     }
 
@@ -35,10 +35,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Presence prsc = presenceList.get(position);
-        holder.materia.setText(prsc.getMateria());
-        holder.day.setText(prsc.getDay());
-        holder.preceptor.setText(prsc.getPreceptor());
+        CheckDoDia prsc = presenceList.get(position);
+        holder.materia.setText(prsc.materia);
+        holder.day.setText(prsc.date);
+        holder.preceptor.setText(prsc.preceptor);
     }
 
     @Override

@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2pt">
 
     <TextView
         android:id="@+id/textMateria"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingLeft="5sp"
         android:text="Materia"
-        android:textAlignment="viewStart"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingLeft="5sp"
-        android:text="Day"
-        android:textSize="18sp" />
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textPreceptor"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingLeft="5sp"
         android:text="Preceptor"
-        android:textSize="18sp" />
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textDay"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingLeft="5sp"
+        android:text="Day"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
+
 </LinearLayout>
